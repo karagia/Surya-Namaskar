@@ -21,14 +21,15 @@ class SalutationPage extends StatefulWidget {
 class _SalutationPageState extends State<SalutationPage> {
   //So whilst my route isnt working YET, I have hard coded a user to
   //allow me to continue development on the features of the App
-  User tempUser = User('Alex', 'Beginner', 'Hatha Surya Namaskar', 'On', 2);
+  // User tempUser = User('Alex', 'Beginner', 'Hatha Surya Namaskar', 'On', 2);
+  User newUser = User("", "", "", "", -1);
   // _SalutationPageState();
   bool prevButtonDisabled = true;
   bool nextButtonDisabled = false;
   int _totalPoses = 12;
   late List<PoseDetails> _poses;
   int _currentPageNo = 0;
-  int _delayTime = 0;
+  int _delayTime = 10;
   late Timer _delayTimer;
   bool breathingCue = true;
 
@@ -40,33 +41,33 @@ class _SalutationPageState extends State<SalutationPage> {
   @override
   void initState() {
     super.initState();
-    var repititions = (tempUser.cycles * 12);
+    var repititions = (newUser.cycles * 12);
 
     _totalPoses = widget.poseList.poses.length;
     _poses = widget.poseList.poses;
-    if (tempUser.experience == 'Beginner') {
-      _delayTime = 30;
-    } else if (tempUser.experience == 'Novice') {
+    if (newUser.experience == 'Beginner') {
+      _delayTime = 3;
+    } else if (newUser.experience == 'Novice') {
       _delayTime = 20;
-    } else if (tempUser.experience == 'Experienced') {
+    } else if (newUser.experience == 'Experienced') {
       _delayTime = 15;
     }
 
-    if (tempUser.breathing == 'Off') {
+    if (newUser.breathing == 'Off') {
       breathingCue = false;
     } else {
       breathingCue = true;
     }
 
-    if (tempUser.workout == 'Hatha Surya Namaskar') {
+    if (newUser.workout == 'Hatha Surya Namaskar') {
       //TODO
-    } else if (tempUser.workout == 'Sivanda Sun Salutation') {
+    } else if (newUser.workout == 'Sivanda Sun Salutation') {
       //TODO
-    } else if (tempUser.workout == 'Ashtanga Surya Namaskar A') {
+    } else if (newUser.workout == 'Ashtanga Surya Namaskar A') {
       //TODO
-    } else if (tempUser.workout == 'Ashtanga Surya Namaskar B') {
+    } else if (newUser.workout == 'Ashtanga Surya Namaskar B') {
       //TODO
-    } else if (tempUser.workout == 'Lyengar Surya Namaskar') {
+    } else if (newUser.workout == 'Lyengar Surya Namaskar') {
       //TODO
     }
   }
@@ -119,6 +120,7 @@ class _SalutationPageState extends State<SalutationPage> {
         _currentPageNo--;
       }
       checkAndUpdateButtonStatus();
+      initDelayTimer();
     });
   }
 
@@ -162,6 +164,7 @@ class _SalutationPageState extends State<SalutationPage> {
     setState(() {
       _currentPageNo = 0;
       checkAndUpdateButtonStatus();
+      initDelayTimer();
     });
   }
 
@@ -175,7 +178,7 @@ class _SalutationPageState extends State<SalutationPage> {
   Widget build(BuildContext context) {
     final User newUser = ModalRoute.of(context)!.settings.arguments as User;
     print(newUser);
-    print(newUser);
+
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.wb_sunny),
@@ -299,13 +302,16 @@ class _SalutationPageState extends State<SalutationPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                // Expanded(
-                //   child: ElevatedButton(
-                //     // mini: true,
-                //     child: Icon(FontAwesomeIcons.home),
-                //     onPressed: gotoHomeScreen,
-                //   ),
-                // ),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.amberAccent)),
+                    // mini: true,
+                    child: Icon(FontAwesomeIcons.replyAll),
+                    onPressed: gotoHomeScreen,
+                  ),
+                ),
                 Expanded(
                   child: ElevatedButton(
                     style: ButtonStyle(
@@ -325,37 +331,37 @@ class _SalutationPageState extends State<SalutationPage> {
                     onPressed: nextButtonDisabled ? null : () => gotoNextPage(),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  //The circular slider is used to enable the user
-                  //to set the timer between the movements
-                  child: SleekCircularSlider(
-                    appearance: CircularSliderAppearance(
-                      infoProperties: InfoProperties(
-                          mainLabelStyle: TextStyle(
-                        color: Colors.white,
-                      )),
-                      customColors: CustomSliderColors(
-                        progressBarColor: Colors.blue,
-                        dotColor: Colors.blueAccent,
-                        trackColor: Colors.deepPurple,
-                        hideShadow: true,
-                      ),
-                      size: 50.0,
-                    ),
-                    initialValue: 0.0,
-                    max: 15.0,
-                    min: 0.0,
-                    onChange: (double value) {
-                      Future.delayed(
-                          Duration.zero,
-                          () => setState(() {
-                                _delayTime = value.toInt();
-                                //print(value.toInt());
-                              }));
-                    },
-                  ),
-                ),
+                // Expanded(
+                //   flex: 1,
+                //   //The circular slider is used to enable the user
+                //   //to set the timer between the movements
+                //   child: SleekCircularSlider(
+                //     appearance: CircularSliderAppearance(
+                //       infoProperties: InfoProperties(
+                //           mainLabelStyle: TextStyle(
+                //         color: Colors.white,
+                //       )),
+                //       customColors: CustomSliderColors(
+                //         progressBarColor: Colors.blue,
+                //         dotColor: Colors.blueAccent,
+                //         trackColor: Colors.deepPurple,
+                //         hideShadow: true,
+                //       ),
+                //       size: 50.0,
+                //     ),
+                //     initialValue: 0.0,
+                //     max: 15.0,
+                //     min: 0.0,
+                //     onChange: (double value) {
+                //       Future.delayed(
+                //           Duration.zero,
+                //           () => setState(() {
+                //                 _delayTime = value.toInt();
+                //                 //print(value.toInt());
+                //               }));
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ],
