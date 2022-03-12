@@ -26,128 +26,135 @@ class AboutPage extends StatelessWidget {
         backgroundColor: Colors.amberAccent,
         centerTitle: true,
       ),
-      body: CustomScrollView(
-        shrinkWrap: true,
-        slivers: <Widget>[
-          SliverPadding(
-            padding: const EdgeInsets.all(20.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: const Text(
-                          'Source:',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Verdana',
-                            color: Colors.teal,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/sunset.jpg"),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: CustomScrollView(
+          shrinkWrap: true,
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.all(20.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: const Text(
+                            'Source:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Verdana',
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Surya Namaskar - An Instruction Booklet',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Arial',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: const Text(
-                          'ISBN:',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Verdana',
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          '81-89248-16-2',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Arial',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: const Text(
-                          'Publisher:',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Verdana',
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          'Vivekananda Kendra Prakashan Trust on behalf of'
-                          ' Vivekananda Kendra.',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Arial',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: const Text(
-                          'Web:',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Verdana',
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: InkWell(
+                        Expanded(
+                          flex: 2,
                           child: Text(
-                            'vkendra.org',
+                            'Surya Namaskar - An Instruction Booklet',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Arial',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: const Text(
+                            'ISBN:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Verdana',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            '81-89248-16-2',
                             style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.normal,
                               fontFamily: 'Arial',
-                              color: Colors.blueAccent,
                             ),
                           ),
-                          onTap: () => launchURL(),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: const Text(
+                            'Publisher:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Verdana',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Vivekananda Kendra Prakashan Trust on behalf of'
+                            ' Vivekananda Kendra.',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Arial',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: const Text(
+                            'Web:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Verdana',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: InkWell(
+                            child: Text(
+                              'vkendra.org',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Arial',
+                                color: Colors.blueAccent,
+                              ),
+                            ),
+                            onTap: () => launchURL(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "infobtn2",

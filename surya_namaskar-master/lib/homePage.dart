@@ -51,8 +51,8 @@ class _homePageState extends State<homePage> {
       'icon': Icon(Icons.grade),
     },
     {
-      'value': 'Lyengar Surya Namaskar',
-      'label': 'Lyengar Surya Namaskar',
+      'value': 'Iyengar Surya Namaskar',
+      'label': 'Iyengar Surya Namaskar',
       'icon': Icon(Icons.grade),
     },
   ];
@@ -262,6 +262,7 @@ class _homePageState extends State<homePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => SalutationPage(
+                                    newUser: newUser,
                                     poseList: PoseList(),
                                   ),
                               // Pass the arguments as part of the RouteSettings. The

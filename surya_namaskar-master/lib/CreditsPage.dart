@@ -1,26 +1,25 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:surya_namaskar/posedetails.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'posedetails.dart';
-
-//This widget has the UI for the info button
-//on a pose
-//If a user is on a pose and clicks on the i button
-//it opens up a page where it gives the details
-//about the breathing, the benefits and the
-//precautions that one might need to take
-//while doing a pose
-class PoseInfoPage extends StatelessWidget {
-  final PoseDetails pose;
-  PoseInfoPage({required this.pose});
+//This is the about page, where the credits
+//are mentioned.
+//It also has a link to the URL from where the
+//book that motivated this app was bought
+class CreditsPage extends StatelessWidget {
+  void launchURL() async {
+    const url = 'https://www.fitsri.com/articles/surya-namaskar-types';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pose.name + ' Details',
+        title: Text('Credits',
             style: TextStyle(
               color: Colors.white,
             )),
@@ -42,11 +41,16 @@ class PoseInfoPage extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child:
+                          Text("All images and text used in the application:"),
+                    ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: const Text(
-                            'Breathing:',
+                            'Source:',
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -55,9 +59,35 @@ class PoseInfoPage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 1,
+                          flex: 2,
                           child: Text(
-                            pose.breathing,
+                            'Surya Namaskar Types (Hatha, Sivananda, Ashtanga): Poses & Benefits',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Arial',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: const Text(
+                            'Author:',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Verdana',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'Ashish.',
                             style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.normal,
@@ -72,7 +102,7 @@ class PoseInfoPage extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: const Text(
-                            'Precautions:',
+                            'Web:',
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -81,39 +111,18 @@ class PoseInfoPage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                            flex: 1,
+                          flex: 2,
+                          child: InkWell(
                             child: Text(
-                              pose.precaution,
+                              'www.fitsri.com',
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Arial',
+                                color: Colors.blueAccent,
                               ),
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: 20.0),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: const Text(
-                            'Benefits:',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Verdana',
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            pose.benefits,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal,
-                              fontFamily: 'Arial',
-                            ),
+                            onTap: () => launchURL(),
                           ),
                         ),
                       ],
@@ -126,7 +135,7 @@ class PoseInfoPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: "infobtn",
+        heroTag: "infobtn2",
         child: Text('OK'),
         onPressed: () {
           Navigator.of(context).pop();

@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:surya_namaskar/about.dart';
 import 'package:surya_namaskar/posedetails.dart';
 import 'package:surya_namaskar/poseinfo.dart';
 import 'package:surya_namaskar/user.dart';
+import 'CreditsPage.dart';
 import 'contact.dart';
 import 'posedetails.dart';
 
 class SalutationPage extends StatefulWidget {
-  SalutationPage({User? newUser, required this.poseList});
+  final newUser;
+  SalutationPage({required this.poseList, this.newUser});
   final PoseList poseList;
 
   @override
@@ -21,54 +21,27 @@ class SalutationPage extends StatefulWidget {
 class _SalutationPageState extends State<SalutationPage> {
   //So whilst my route isnt working YET, I have hard coded a user to
   //allow me to continue development on the features of the App
-  // User tempUser = User('Alex', 'Beginner', 'Hatha Surya Namaskar', 'On', 2);
-  User newUser = User("", "", "", "", -1);
-  // _SalutationPageState();
+
+  //User newUser = User('Alex', 'Beginner', 'Hatha Surya Namaskar', 'On', 2);
+
+  _SalutationPageState();
   bool prevButtonDisabled = true;
   bool nextButtonDisabled = false;
   int _totalPoses = 12;
   late List<PoseDetails> _poses;
   int _currentPageNo = 0;
-  int _delayTime = 10;
+  int _delayTime = 0;
   late Timer _delayTimer;
   bool breathingCue = true;
 
-  //just making sure that the total number of poses
-  //is retrieved from the list and not the hardcoded value
-  //also need to get the list of poses from the list.
-  //this is because if we change it later, it will not
-  //affect the UI code (i.e. this page)
   @override
   void initState() {
     super.initState();
-    var repititions = (newUser.cycles * 12);
 
-    _totalPoses = widget.poseList.poses.length;
-    _poses = widget.poseList.poses;
-    if (newUser.experience == 'Beginner') {
-      _delayTime = 3;
-    } else if (newUser.experience == 'Novice') {
-      _delayTime = 20;
-    } else if (newUser.experience == 'Experienced') {
-      _delayTime = 15;
-    }
-
-    if (newUser.breathing == 'Off') {
+    if (widget.newUser.breathing == 'Off') {
       breathingCue = false;
     } else {
       breathingCue = true;
-    }
-
-    if (newUser.workout == 'Hatha Surya Namaskar') {
-      //TODO
-    } else if (newUser.workout == 'Sivanda Sun Salutation') {
-      //TODO
-    } else if (newUser.workout == 'Ashtanga Surya Namaskar A') {
-      //TODO
-    } else if (newUser.workout == 'Ashtanga Surya Namaskar B') {
-      //TODO
-    } else if (newUser.workout == 'Lyengar Surya Namaskar') {
-      //TODO
     }
   }
 
@@ -84,7 +57,7 @@ class _SalutationPageState extends State<SalutationPage> {
       } else {
         _currentPageNo++;
       }
-      initDelayTimer();
+      //initDelayTimer();
       checkAndUpdateButtonStatus();
     });
   }
@@ -96,11 +69,23 @@ class _SalutationPageState extends State<SalutationPage> {
   //and then accordingly navigate to the next pose
   //and ensure that we do not loop through
   void initDelayTimer() {
+    if (widget.newUser.experience == 'Beginner') {
+      _delayTime = 3;
+    } else if (widget.newUser.experience == 'Novice') {
+      _delayTime = 20;
+    } else if (widget.newUser.experience == 'Experienced') {
+      _delayTime = 15;
+    }
+    var repititions = (widget.newUser.cycles * _totalPoses);
     _delayTimer = new Timer(Duration(seconds: (_delayTime)), () {
       setState(() {});
       if (_delayTime != 0) {
-        if (_currentPageNo > 0 && _currentPageNo < _totalPoses - 1) {
+        if (_currentPageNo >= 0 && _currentPageNo < repititions) {
           gotoNextPage();
+        }
+        if (_currentPageNo == _totalPoses) {
+          repititions - _totalPoses;
+          gotoHomeScreen();
         }
       }
     });
@@ -120,7 +105,7 @@ class _SalutationPageState extends State<SalutationPage> {
         _currentPageNo--;
       }
       checkAndUpdateButtonStatus();
-      initDelayTimer();
+      // initDelayTimer();
     });
   }
 
@@ -153,6 +138,11 @@ class _SalutationPageState extends State<SalutationPage> {
     return returnVal;
   }
 
+  String getCurrentPageBreathing() {
+    String returnVal = _poses.elementAt(_currentPageNo).breathing;
+    return returnVal;
+  }
+
   //Returns the current page's description
   String getCurrentPageDescription() {
     return _poses.elementAt(_currentPageNo).process;
@@ -176,16 +166,39 @@ class _SalutationPageState extends State<SalutationPage> {
   //Building the UI for the page
   @override
   Widget build(BuildContext context) {
-    final User newUser = ModalRoute.of(context)!.settings.arguments as User;
-    print(newUser);
-
+    User newUser = ModalRoute.of(context)!.settings.arguments as User;
+    if (widget.newUser.workout == 'Hatha Surya Namaskar' ||
+        widget.newUser.workout == null) {
+      _totalPoses = widget.poseList.poses1.length;
+      _poses = widget.poseList.poses1;
+    }
+    if (widget.newUser.workout == 'Sivanda Sun Salutation') {
+      _totalPoses = widget.poseList.poses2.length;
+      _poses = widget.poseList.poses2;
+    }
+    if (widget.newUser.workout == 'Ashtanga Surya Namaskar A') {
+      _totalPoses = widget.poseList.samAposes.length;
+      _poses = widget.poseList.samAposes;
+    }
+    if (widget.newUser.workout == 'Ashtanga Surya Namaskar B') {
+      _totalPoses = widget.poseList.poses4.length;
+      _poses = widget.poseList.poses4;
+    }
+    if (widget.newUser.workout == 'Iyengar Surya Namaskar') {
+      _totalPoses = widget.poseList.poses5.length;
+      _poses = widget.poseList.poses5;
+    }
+    print("ON THE SALUTATION PAGE 1 $newUser");
+    print("ON THE SALUTATION PAGE 2  $widget.newUser");
+    print(newUser.workout);
+    initDelayTimer();
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.wb_sunny),
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
         title: Text(
-          'Sun Salutations - ' + getCurrentPageHeading(),
+          getCurrentPageHeading(),
           style: TextStyle(fontSize: 10),
         ),
         actions: [
@@ -231,10 +244,10 @@ class _SalutationPageState extends State<SalutationPage> {
                 );
               }
               if (result == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AboutPage()),
-                // ); TODO
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CreditsPage()),
+                );
               }
             },
           )
@@ -269,17 +282,38 @@ class _SalutationPageState extends State<SalutationPage> {
               padding: const EdgeInsets.only(right: 20.0),
               child: Container(
                 alignment: Alignment.bottomRight,
-                child: FloatingActionButton(
-                  child: Icon(FontAwesomeIcons.info),
-                  backgroundColor: Colors.amberAccent,
-                  onPressed: () {
-                    PoseInfoPage infopage =
-                        new PoseInfoPage(pose: getCurrentPose());
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(builder: (context) => infopage),
-                    );
-                  },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: breathingCue
+                          ? Text(
+                              getCurrentPageBreathing(),
+                              style: TextStyle(
+                                  fontSize: 30, fontFamily: 'Georgia'),
+                            )
+                          : Text(""),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: FloatingActionButton(
+                          child: Icon(FontAwesomeIcons.info),
+                          backgroundColor: Colors.amberAccent,
+                          onPressed: () {
+                            PoseInfoPage infopage =
+                                new PoseInfoPage(pose: getCurrentPose());
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (context) => infopage),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

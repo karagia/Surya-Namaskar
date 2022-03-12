@@ -10,15 +10,6 @@ import 'salutation_step.dart';
 
 //Need this to run the whole application
 void main() {
-  routes:
-  <String, WidgetBuilder>{
-    'homePage()': (BuildContext context) => homePage(),
-    'about()': (BuildContext context) => AboutPage(),
-    'contact()': (BuildContext context) => contact(),
-    'salutation()': (BuildContext context) => SalutationPage(
-          poseList: PoseList(),
-        )
-  };
   runApp(SNApp());
 }
 
