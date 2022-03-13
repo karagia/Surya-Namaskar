@@ -1,36 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:surya_namaskar/about.dart';
-import 'package:surya_namaskar/contact.dart';
-import 'package:surya_namaskar/posedetails.dart';
-import 'package:surya_namaskar/salutation_step.dart';
-import 'package:surya_namaskar/user.dart';
 import 'homePage.dart';
-import 'posedetails.dart';
-import 'salutation_step.dart';
 
-//Need this to run the whole application
 void main() {
-  runApp(SNApp());
+  runApp(App());
 }
 
-//Starter Widget which contains everything else
-class SNApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Surya Namaskar',
       theme: ThemeData(
-        // Define the default brightness and colors.
         brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[00],
-        accentColor: Colors.cyan[600],
-
-        // Define the default font family.
         fontFamily: 'Georgia',
-
-        // Define the default TextTheme. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
           headline1: TextStyle(
             fontSize: 72.0,
@@ -47,10 +29,8 @@ class SNApp extends StatelessWidget {
           ),
         ),
       ),
-      //the Salutation Page consists of all the poses and the
-      //buttons to navigate between them.
-      // home: SalutationPage(
-      //   poseList: PoseList(),
+      //the home Page is a Form to take the users inputs
+      // which controls the performance of the application
       home: homePage(),
     );
   }

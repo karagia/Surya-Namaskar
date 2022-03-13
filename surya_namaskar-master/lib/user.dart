@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/editable_text.dart';
-
 class User {
   String? name;
   String? experience;

@@ -1,6 +1,5 @@
-//Just a class with all the required objects
-//defined for each pose and also the list of
-//all poses for the whole sequence of surya namaskar
+//A class with all the required objects
+
 class PoseDetails {
   late String process;
   late String breathing;
@@ -10,12 +9,13 @@ class PoseDetails {
   late String image;
 }
 
+// 5 different types of workout
 class PoseList {
-  late List<PoseDetails> poses1;
-  late List<PoseDetails> poses2;
+  late List<PoseDetails> SuryaBasic;
+  late List<PoseDetails> Sivanda;
   late List<PoseDetails> samAposes;
-  late List<PoseDetails> poses4;
-  late List<PoseDetails> poses5;
+  late List<PoseDetails> samBposes;
+  late List<PoseDetails> Iyengar;
 
   PoseList() {
     initializePoses();
@@ -23,36 +23,35 @@ class PoseList {
 
   void initializePoses() {
     //Basic Surya Namaskar 12 poses
-    poses1 = List<PoseDetails>.empty(growable: true);
-    poses1.add(_createPoseIntro());
-    poses1.add(_createPoseStart());
-    poses1.add(_createPose1());
-    poses1.add(_createPose2());
-    poses1.add(_createPose3());
-    poses1.add(_createPose4());
-    poses1.add(_createPose5());
-    poses1.add(_createPose6());
-    poses1.add(_createPose7());
-    poses1.add(_createPose8());
-    poses1.add(_createPose9());
-    poses1.add(_createPose10());
-    poses1.add(_createPose11());
+    SuryaBasic = List<PoseDetails>.empty(growable: true);
+    SuryaBasic.add(_createPoseIntro());
+    SuryaBasic.add(_createPoseStart());
+    SuryaBasic.add(_createPose1());
+    SuryaBasic.add(_createPose2());
+    SuryaBasic.add(_createPose3());
+    SuryaBasic.add(_createPose4());
+    SuryaBasic.add(_createPose5());
+    SuryaBasic.add(_createPose6());
+    SuryaBasic.add(_createPose7());
+    SuryaBasic.add(_createPose8());
+    SuryaBasic.add(_createPose9());
+    SuryaBasic.add(_createPose10());
+    SuryaBasic.add(_createPose11());
 // Sivananda Sun Salutation ( Same as Basic but sped up)
-
-    poses2 = List<PoseDetails>.empty(growable: true);
-    poses2.add(_createPoseSivIntro());
-    poses2.add(_createPoseStart());
-    poses2.add(_createPose1());
-    poses2.add(_createPose2());
-    poses2.add(_createPose3());
-    poses2.add(_createPose4());
-    poses2.add(_createPose5());
-    poses2.add(_createPose6());
-    poses2.add(_createPose7());
-    poses2.add(_createPose8());
-    poses2.add(_createPose9());
-    poses2.add(_createPose10());
-    poses2.add(_createPose11());
+    Sivanda = List<PoseDetails>.empty(growable: true);
+    Sivanda.add(_createPoseSivIntro());
+    Sivanda.add(_createPoseStart());
+    Sivanda.add(_createPose1());
+    Sivanda.add(_createPose2());
+    Sivanda.add(_createPose3());
+    Sivanda.add(_createPose4());
+    Sivanda.add(_createPose5());
+    Sivanda.add(_createPose6());
+    Sivanda.add(_createPose7());
+    Sivanda.add(_createPose8());
+    Sivanda.add(_createPose9());
+    Sivanda.add(_createPose10());
+    Sivanda.add(_createPose11());
     //Ashtanga Surya Namaskar A (10 poses)
     samAposes = List<PoseDetails>.empty(growable: true);
     samAposes.add(_createSamAPoseIntro());
@@ -67,42 +66,42 @@ class PoseList {
     samAposes.add(_createSamAPose8());
     samAposes.add(_createSamAPose9());
 //Ashtanga Surya Namaskar B (19 poses)
-    poses4 = List<PoseDetails>.empty(growable: true);
-    poses4.add(_createPoseSamBIntro());
-    poses4.add(_createSamAPose9()); //Mountain Pose
-    poses4.add(_createPoseSamB1()); //Awkward Chair
-    poses4.add(_createSamAPose2()); //Standing Forward Bend Pose
-    poses4.add(_createSamAPose3()); //Half Standing forward bend
-    poses4.add(_createSamAPose4()); //Four Limbed Staff
-    poses4.add(_createSamAPose5()); //Upward facing Dog
-    poses4.add(_createSamAPose6()); //Downward Facing dog
-    poses4.add(_createPoseSamB2()); //Warrior
-    poses4.add(_createSamAPose4()); //Four Limbed Staff
-    poses4.add(_createSamAPose5()); //Upward facing Dog
-    poses4.add(_createSamAPose6()); //Downward Facing dog
-    poses4.add(_createPoseSamB2()); //Warrior
-    poses4.add(_createSamAPose4()); //Four Limbed Staff
-    poses4.add(_createSamAPose5()); //Upward facing Dog
-    poses4.add(_createSamAPose6()); //Downward Facing dog
-    poses4.add(_createSamAPose3()); //Half Standing forward bend
-    poses4.add(_createSamAPose2()); //Standing Forward Bend Pose
-    poses4.add(_createPoseSamB1()); //Awkward Chair
-    poses4.add(_createSamAPose9()); //Mountain Pose
+    samBposes = List<PoseDetails>.empty(growable: true);
+    samBposes.add(_createPoseSamBIntro());
+    samBposes.add(_createSamAPose9()); //Mountain Pose
+    samBposes.add(_createPoseSamB1()); //Awkward Chair
+    samBposes.add(_createSamAPose2()); //Standing Forward Bend Pose
+    samBposes.add(_createSamAPose3()); //Half Standing forward bend
+    samBposes.add(_createSamAPose4()); //Four Limbed Staff
+    samBposes.add(_createSamAPose5()); //Upward facing Dog
+    samBposes.add(_createSamAPose6()); //Downward Facing dog
+    samBposes.add(_createPoseSamB2()); //Warrior
+    samBposes.add(_createSamAPose4()); //Four Limbed Staff
+    samBposes.add(_createSamAPose5()); //Upward facing Dog
+    samBposes.add(_createSamAPose6()); //Downward Facing dog
+    samBposes.add(_createPoseSamB2()); //Warrior
+    samBposes.add(_createSamAPose4()); //Four Limbed Staff
+    samBposes.add(_createSamAPose5()); //Upward facing Dog
+    samBposes.add(_createSamAPose6()); //Downward Facing dog
+    samBposes.add(_createSamAPose3()); //Half Standing forward bend
+    samBposes.add(_createSamAPose2()); //Standing Forward Bend Pose
+    samBposes.add(_createPoseSamB1()); //Awkward Chair
+    samBposes.add(_createSamAPose9()); //Mountain Pose
     //Iyengar Surya Namaskar (12 poses)
-    poses5 = List<PoseDetails>.empty(growable: true);
-    poses5.add(_createIPoseIntro());
-    poses5.add(_createSamAPose9()); //Mountain Pose
-    poses5.add(_createSamAPose1()); //Raised Hands
-    poses5.add(_createSamAPose2()); //Standing Forward Bend Pose
-    poses5.add(_createSamAPose3()); //Half Standing forward bend
-    poses5.add(_createSamAPose4()); //Four Limbed Staff
-    poses5.add(_createSamAPose4()); //Four Limbed Staff
-    poses5.add(_createSamAPose5()); //Upward facing Dog
-    poses5.add(_createSamAPose6()); //Downward Facing dog
-    poses4.add(_createSamAPose3()); //Half Standing forward bend
-    poses4.add(_createSamAPose2()); //Standing Forward Bend Pose
-    poses5.add(_createSamAPose1()); //Raised Hands
-    poses4.add(_createSamAPose9()); //Mountain Pose
+    Iyengar = List<PoseDetails>.empty(growable: true);
+    Iyengar.add(_createIPoseIntro());
+    Iyengar.add(_createSamAPose9()); //Mountain Pose
+    Iyengar.add(_createSamAPose1()); //Raised Hands
+    Iyengar.add(_createSamAPose2()); //Standing Forward Bend Pose
+    Iyengar.add(_createSamAPose3()); //Half Standing forward bend
+    Iyengar.add(_createSamAPose4()); //Four Limbed Staff
+    Iyengar.add(_createSamAPose4()); //Four Limbed Staff
+    Iyengar.add(_createSamAPose5()); //Upward facing Dog
+    Iyengar.add(_createSamAPose6()); //Downward Facing dog
+    Iyengar.add(_createSamAPose3()); //Half Standing forward bend
+    Iyengar.add(_createSamAPose2()); //Standing Forward Bend Pose
+    Iyengar.add(_createSamAPose1()); //Raised Hands
+    Iyengar.add(_createSamAPose9()); //Mountain Pose
   }
 
   PoseDetails _createIPoseIntro() {

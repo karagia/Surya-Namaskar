@@ -7,6 +7,7 @@ import 'package:surya_namaskar/poseinfo.dart';
 import 'package:surya_namaskar/user.dart';
 import 'CreditsPage.dart';
 import 'contact.dart';
+import 'homePage.dart';
 import 'posedetails.dart';
 
 class SalutationPage extends StatefulWidget {
@@ -19,11 +20,6 @@ class SalutationPage extends StatefulWidget {
 }
 
 class _SalutationPageState extends State<SalutationPage> {
-  //So whilst my route isnt working YET, I have hard coded a user to
-  //allow me to continue development on the features of the App
-
-  //User newUser = User('Alex', 'Beginner', 'Hatha Surya Namaskar', 'On', 2);
-
   _SalutationPageState();
   bool prevButtonDisabled = true;
   bool nextButtonDisabled = false;
@@ -37,7 +33,6 @@ class _SalutationPageState extends State<SalutationPage> {
   @override
   void initState() {
     super.initState();
-
     if (widget.newUser.breathing == 'Off') {
       breathingCue = false;
     } else {
@@ -47,9 +42,6 @@ class _SalutationPageState extends State<SalutationPage> {
 
   //tells you what to do when we click on the -> next button
   //basically identify the next pose to navigate to
-  //and if the timer is set, start the timer (for it to
-  //auto navigate to the next page)
-  //and update all the button status
   void gotoNextPage() {
     setState(() {
       if (_currentPageNo == (_totalPoses - 1)) {
@@ -57,20 +49,17 @@ class _SalutationPageState extends State<SalutationPage> {
       } else {
         _currentPageNo++;
       }
-      //initDelayTimer();
       checkAndUpdateButtonStatus();
     });
   }
 
   //this is the timer code
-  //we set the timer to a value between 0 and 15
-  //(no real reason for that..just that it might take
-  //15 secs to do a pose)
+  //we set the timer to a value depending on the level of experience chosen
   //and then accordingly navigate to the next pose
-  //and ensure that we do not loop through
+  //we also continue to loop through until we reach the deisred number of Cycles set by the user.
   void initDelayTimer() {
     if (widget.newUser.experience == 'Beginner') {
-      _delayTime = 3;
+      _delayTime = 30;
     } else if (widget.newUser.experience == 'Novice') {
       _delayTime = 20;
     } else if (widget.newUser.experience == 'Experienced') {
@@ -95,8 +84,6 @@ class _SalutationPageState extends State<SalutationPage> {
   //just like the next button, need to ensure that the
   //change stops at the first pose and the buttons
   //are updated accordingly.
-  //unlike the next button, this doesn't trigger the
-  //timer in anyway.
   void gotoPrevPage() {
     setState(() {
       if (_currentPageNo == 0) {
@@ -105,7 +92,6 @@ class _SalutationPageState extends State<SalutationPage> {
         _currentPageNo--;
       }
       checkAndUpdateButtonStatus();
-      // initDelayTimer();
     });
   }
 
@@ -138,6 +124,7 @@ class _SalutationPageState extends State<SalutationPage> {
     return returnVal;
   }
 
+//Returns the current page's breathing cue
   String getCurrentPageBreathing() {
     String returnVal = _poses.elementAt(_currentPageNo).breathing;
     return returnVal;
@@ -149,7 +136,6 @@ class _SalutationPageState extends State<SalutationPage> {
   }
 
   //Navigates to the Home Screen
-  //where we give an introduction to the whole app
   void gotoHomeScreen() {
     setState(() {
       _currentPageNo = 0;
@@ -169,28 +155,25 @@ class _SalutationPageState extends State<SalutationPage> {
     User newUser = ModalRoute.of(context)!.settings.arguments as User;
     if (widget.newUser.workout == 'Hatha Surya Namaskar' ||
         widget.newUser.workout == null) {
-      _totalPoses = widget.poseList.poses1.length;
-      _poses = widget.poseList.poses1;
+      _totalPoses = widget.poseList.SuryaBasic.length;
+      _poses = widget.poseList.SuryaBasic;
     }
     if (widget.newUser.workout == 'Sivanda Sun Salutation') {
-      _totalPoses = widget.poseList.poses2.length;
-      _poses = widget.poseList.poses2;
+      _totalPoses = widget.poseList.Sivanda.length;
+      _poses = widget.poseList.Sivanda;
     }
     if (widget.newUser.workout == 'Ashtanga Surya Namaskar A') {
       _totalPoses = widget.poseList.samAposes.length;
       _poses = widget.poseList.samAposes;
     }
     if (widget.newUser.workout == 'Ashtanga Surya Namaskar B') {
-      _totalPoses = widget.poseList.poses4.length;
-      _poses = widget.poseList.poses4;
+      _totalPoses = widget.poseList.samBposes.length;
+      _poses = widget.poseList.samBposes;
     }
     if (widget.newUser.workout == 'Iyengar Surya Namaskar') {
-      _totalPoses = widget.poseList.poses5.length;
-      _poses = widget.poseList.poses5;
+      _totalPoses = widget.poseList.Iyengar.length;
+      _poses = widget.poseList.Iyengar;
     }
-    print("ON THE SALUTATION PAGE 1 $newUser");
-    print("ON THE SALUTATION PAGE 2  $widget.newUser");
-    print(newUser.workout);
     initDelayTimer();
     return Scaffold(
       appBar: AppBar(
@@ -198,16 +181,19 @@ class _SalutationPageState extends State<SalutationPage> {
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
         title: Text(
-          getCurrentPageHeading(),
-          style: TextStyle(fontSize: 10),
+          "Welcome " + widget.newUser.name,
+          style: TextStyle(fontSize: 16),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: IconButton(
               icon: const Icon(Icons.home),
+              //A button here that will actually take you out to the very beginning of the app where you
+              //can start from scratch with new inputs, new workout, different breathing cues etc
               onPressed: () {
-                Navigator.pushNamed(context, 'homePage()');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homePage()));
               },
             ),
           ),
@@ -230,6 +216,8 @@ class _SalutationPageState extends State<SalutationPage> {
                 value: 3,
               )
             ],
+
+            //Route to the About page
             onSelected: (result) {
               if (result == 1) {
                 Navigator.push(
@@ -237,12 +225,14 @@ class _SalutationPageState extends State<SalutationPage> {
                   MaterialPageRoute(builder: (context) => AboutPage()),
                 );
               }
+              //Route to the Contact page
               if (result == 2) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => contact()),
                 );
               }
+              //Route to the Credits page
               if (result == 3) {
                 Navigator.push(
                   context,
@@ -253,6 +243,8 @@ class _SalutationPageState extends State<SalutationPage> {
           )
         ],
       ),
+      //This builds the whole layout of the poses pages, including image, description,
+      //breathing cue, information logo and navigation buttons.
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -365,37 +357,6 @@ class _SalutationPageState extends State<SalutationPage> {
                     onPressed: nextButtonDisabled ? null : () => gotoNextPage(),
                   ),
                 ),
-                // Expanded(
-                //   flex: 1,
-                //   //The circular slider is used to enable the user
-                //   //to set the timer between the movements
-                //   child: SleekCircularSlider(
-                //     appearance: CircularSliderAppearance(
-                //       infoProperties: InfoProperties(
-                //           mainLabelStyle: TextStyle(
-                //         color: Colors.white,
-                //       )),
-                //       customColors: CustomSliderColors(
-                //         progressBarColor: Colors.blue,
-                //         dotColor: Colors.blueAccent,
-                //         trackColor: Colors.deepPurple,
-                //         hideShadow: true,
-                //       ),
-                //       size: 50.0,
-                //     ),
-                //     initialValue: 0.0,
-                //     max: 15.0,
-                //     min: 0.0,
-                //     onChange: (double value) {
-                //       Future.delayed(
-                //           Duration.zero,
-                //           () => setState(() {
-                //                 _delayTime = value.toInt();
-                //                 //print(value.toInt());
-                //               }));
-                //     },
-                //   ),
-                // ),
               ],
             ),
           ],

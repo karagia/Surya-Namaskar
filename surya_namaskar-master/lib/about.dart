@@ -85,7 +85,7 @@ class AboutPage extends StatelessWidget {
                             '81-89248-16-2',
                             style: TextStyle(
                               fontSize: 16.0,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'Arial',
                             ),
                           ),
@@ -112,7 +112,7 @@ class AboutPage extends StatelessWidget {
                             ' Vivekananda Kendra.',
                             style: TextStyle(
                               fontSize: 16.0,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'Arial',
                             ),
                           ),
@@ -139,7 +139,7 @@ class AboutPage extends StatelessWidget {
                               'vkendra.org',
                               style: TextStyle(
                                 fontSize: 16.0,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.bold,
                                 fontFamily: 'Arial',
                                 color: Colors.blueAccent,
                               ),
@@ -159,6 +159,7 @@ class AboutPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: "infobtn2",
         child: Text('OK'),
+        backgroundColor: Colors.amberAccent,
         onPressed: () {
           Navigator.of(context).pop();
         },

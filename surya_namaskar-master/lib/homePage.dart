@@ -3,7 +3,7 @@ import 'package:surya_namaskar/contact.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:surya_namaskar/posedetails.dart';
 import 'package:surya_namaskar/salutation_step.dart';
-import 'about.dart';
+import 'CreditsPage.dart';
 import 'user.dart';
 
 class homePage extends StatefulWidget {
@@ -12,6 +12,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  //Drop down options for form fields
   final List<Map<String, dynamic>> _items1 = [
     {
       'value': 'Beginner',
@@ -68,12 +69,14 @@ class _homePageState extends State<homePage> {
       'icon': Icon(Icons.grade),
     }
   ];
+  //Text Editing controllers
   TextEditingController nameController = TextEditingController();
   TextEditingController cycleController = TextEditingController();
   String? val1 = "";
   String? val2 = "";
   String? val3 = "";
   late User? newUser;
+
   @override
   void initState() {
     super.initState();
@@ -88,43 +91,26 @@ class _homePageState extends State<homePage> {
         leading: Icon(Icons.wb_sunny),
         centerTitle: true,
         backgroundColor: Colors.amberAccent,
-        //title: Text("Surya Namaskar"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.pushNamed(context, 'homePage()');
-              },
-            ),
-          ),
+          //Menu Button
           PopupMenuButton(
             icon: Padding(
               padding: const EdgeInsets.only(right: 25),
               child: Icon(Icons.menu),
             ),
             itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text("About"),
-                value: 1,
-              ),
+              //Menu Item CONTACT
               PopupMenuItem(
                 child: Text("Contact"),
                 value: 2,
               ),
+              //Menu Item CREDITS
               PopupMenuItem(
                 child: Text("Credits"),
                 value: 3,
               )
             ],
             onSelected: (result) {
-              if (result == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutPage()),
-                );
-              }
               if (result == 2) {
                 Navigator.push(
                   context,
@@ -132,10 +118,8 @@ class _homePageState extends State<homePage> {
                 );
               }
               if (result == 3) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AboutPage()),
-                // ); TODO
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreditsPage()));
               }
             },
           )
@@ -144,6 +128,7 @@ class _homePageState extends State<homePage> {
       body: ListView(
         children: [
           Container(
+              //Page background image
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("images/sunset.jpg"),
@@ -152,6 +137,7 @@ class _homePageState extends State<homePage> {
               ),
               child: Column(children: [
                 Padding(padding: EdgeInsets.all(30)),
+                //Page Title
                 SizedBox(
                     child: Text("Surya Namaskar",
                         style: TextStyle(
@@ -159,6 +145,7 @@ class _homePageState extends State<homePage> {
                             fontSize: 20,
                             fontWeight: FontWeight.w600))),
                 Padding(padding: EdgeInsets.all(30)),
+                //First Text Input field NAME
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
@@ -169,9 +156,9 @@ class _homePageState extends State<homePage> {
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(8)),
+                //Dropdown list for EXPREIENCE
                 SelectFormField(
-                  type: SelectFormFieldType.dropdown, // or can be dialog
-                  // initialValue: 'Beginner',
+                  type: SelectFormFieldType.dropdown,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     border: OutlineInputBorder(
@@ -187,12 +174,10 @@ class _homePageState extends State<homePage> {
                   },
                 ),
                 Padding(padding: EdgeInsets.all(10)),
+                //Dropdown list for WORKOUT
                 SelectFormField(
-                  type: SelectFormFieldType.dropdown, // or can be dialog
-                  // initialValue: 'Beginner',
+                  type: SelectFormFieldType.dropdown,
                   decoration: InputDecoration(
-                    // fillColor: Colors.black,
-                    // filled: true,
                     contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32)),
@@ -207,12 +192,11 @@ class _homePageState extends State<homePage> {
                   },
                 ),
                 Padding(padding: EdgeInsets.all(10)),
+                //Dropdown list for BREATHING
                 SelectFormField(
-                  type: SelectFormFieldType.dropdown, // or can be dialog
+                  type: SelectFormFieldType.dropdown,
                   initialValue: 'Breathing Cues On',
                   decoration: InputDecoration(
-                    // fillColor: Colors.black,
-                    // filled: true,
                     contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32)),
@@ -227,6 +211,7 @@ class _homePageState extends State<homePage> {
                   },
                 ),
                 Padding(padding: EdgeInsets.all(10)),
+                //TExt Form Field for CYCLES
                 TextFormField(
                   controller: cycleController,
                   decoration: InputDecoration(
@@ -242,22 +227,15 @@ class _homePageState extends State<homePage> {
                   shadowColor: Colors.amberAccent,
                   elevation: 15,
                   color: Colors.amberAccent,
+                  //START button
                   child: MaterialButton(
                       textColor: Colors.white,
                       child: Text("START"),
                       onPressed: () {
+                        //getUser method takes all inputs/drop down selections and puts them into a User object
                         getUser(nameController.text, val1, val2, val3,
                             cycleController.text);
-                        // setState(() {
-                        //   print('initial user is set to : $newUser');
-                        //   if (null != newUser) {
-                        //     print('Before calling navigator $newUser');
-                        //     Navigator.of(context).pushNamed(
-                        //       'salutation()',
-                        //       arguments: newUser,
-                        //     );
-                        //   }
-                        // });
+                        //We then pass the new User to the next screen ready to start the workout
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -265,18 +243,8 @@ class _homePageState extends State<homePage> {
                                     newUser: newUser,
                                     poseList: PoseList(),
                                   ),
-                              // Pass the arguments as part of the RouteSettings. The
-                              // DetailScreen reads the arguments from these settings.
                               settings: RouteSettings(arguments: newUser)),
                         );
-                        // SalutationPage salPage = new SalutationPage(
-                        //   newUser: newUser,
-                        //   poseList: PoseList(),
-                        // );
-                        // Navigator.push(
-                        //   context,
-                        //   new MaterialPageRoute(builder: (context) => salPage),
-                        // );
                       }),
                 ),
                 Padding(padding: EdgeInsets.all(90)),
@@ -286,6 +254,7 @@ class _homePageState extends State<homePage> {
     );
   }
 
+//Combines the 5 inputs and returns a User
   void getUser(var nameController, String? val1, String? val2, String? val3,
       var cycleController) {
     int cycleController = int.parse(this.cycleController.text);

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="salutations.sun.surya_namaskar">
    <application
-        android:label="surya_namaskar"
+        android:label="Yoga App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -20,9 +20,10 @@ class PoseInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pose.name + ' Details',
+        title: Text(pose.name,
             style: TextStyle(
               color: Colors.white,
+              fontSize: 20,
             )),
         backgroundColor: Colors.amberAccent,
         centerTitle: true,
@@ -128,6 +129,7 @@ class PoseInfoPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: "infobtn",
         child: Text('OK'),
+        backgroundColor: Colors.amberAccent,
         onPressed: () {
           Navigator.of(context).pop();
         },
