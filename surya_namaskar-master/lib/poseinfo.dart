@@ -43,6 +43,7 @@ class PoseInfoPage extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[
+                    SizedBox(height: 20.0),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -67,6 +68,14 @@ class PoseInfoPage extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(height: 20.0),
+                    const Divider(
+                      height: 20,
+                      thickness: 4,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Colors.white,
                     ),
                     SizedBox(height: 20.0),
                     Row(
@@ -94,6 +103,14 @@ class PoseInfoPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 20.0),
+                    const Divider(
+                      height: 20,
+                      thickness: 4,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 20.0),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -119,6 +136,7 @@ class PoseInfoPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(height: 20.0),
                   ],
                 ),
               ),

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:surya_namaskar/about.dart';
 import 'package:surya_namaskar/posedetails.dart';
 import 'package:surya_namaskar/poseinfo.dart';
 import 'package:surya_namaskar/user.dart';
@@ -204,10 +203,6 @@ class _SalutationPageState extends State<SalutationPage> {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text("About"),
-                value: 1,
-              ),
-              PopupMenuItem(
                 child: Text("Contact"),
                 value: 2,
               ),
@@ -216,15 +211,7 @@ class _SalutationPageState extends State<SalutationPage> {
                 value: 3,
               )
             ],
-
-            //Route to the About page
             onSelected: (result) {
-              if (result == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutPage()),
-                );
-              }
               //Route to the Contact page
               if (result == 2) {
                 Navigator.push(
